@@ -1,3 +1,5 @@
+const CircularJSON = require('circular-json');
+
 class APIfeatures {
     constructor(query, queryString) {
       this.query = query;
@@ -11,7 +13,7 @@ class APIfeatures {
       excludedFields.forEach((el) => delete queryObj[el]);
   
       // advance filtering
-      let queryStr = JSON.stringify(queryObj);
+      let queryStr = CircularJSON.stringify(queryObj);
       queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
   
       this.query = this.query.find(JSON.parse(queryStr));
